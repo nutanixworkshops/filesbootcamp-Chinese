@@ -1,22 +1,22 @@
 .. _file_analytics_anomaly:
 
 --------------------------------
-File Analytics: Anomaly Rules
+File 分析: Anomaly Rules（异常规则）
 --------------------------------
 
-Overview
+概述
 ++++++++
 
 
 
-Define Anomaly Rules
+定义异常规则
 +++++++++++++++++++++
 
-#. Create two anomaly rules by going to **Define Anomaly Rules** from under the gear icon
+#. 通过从齿轮图标下转到 **Define Anomaly Rules** 来创建两个异常规则
 
    .. figure:: images/39.png
 
-#. Choose **Define Anomaly Rules** and create a rule with the following settings
+#. 选择 **Define Anomaly Rules** 并使用以下设置创建规则
 
    - **Events:** Delete
    - **Minimum Operation %:** 1
@@ -25,9 +25,9 @@ Define Anomaly Rules
    - **Type:** Hourly
    - **Interval:** 1
 
-#. Choose **Save** for that anomaly table entry
+#. 为该异常表条目选择 **Save**
 
-#. Choose **+ Configure new anomaly** and create a second rule with the following settings
+#. 选择 **+ Configure new anomaly** 并使用以下设置创建第二条规则
 
    - **Events**: Create
    - **Minimum Operation %**: 1
@@ -36,39 +36,39 @@ Define Anomaly Rules
    - **Type**: Hourly
    - **Interval**: 1
 
-#. Choose **Save** for that anomaly table entry
+#. 为该异常表条目选择 **Save**
 
    .. figure:: images/40.png
 
-#. Select **Save** to exit the Define Anomaly Rules window
+#. 选择 **Save** 以退出定义异常规则窗口
 
-Load Sample Data
+加载示例数据
 +++++++++++++++++++++
 
-#. Go to the Sample Data folder in the Marketing share and copy, then paste that folder to the same share.
+#. 转到Marketing共享中的Sample Data文件夹并复制，然后将该文件夹粘贴到同一共享中。
 
    .. figure:: images/42.png
 
-#. Now delete the original Sample Data folder.
+#. 现在删除原始的Sample Data文件夹。
 
-Cause Error Condition
+导致错误条件
 +++++++++++++++++++++
 
-#. While waiting for the Anomaly Alerts to populate we’ll create a permission denial.
+#. 在等待异常警报发出时，我们将创建一个拒绝权限。
 
-   .. note:: The Anomaly engine runs every 30 minutes.  While this setting is configurable from the File Analytics VM, modifying this variable is outside the scope of this lab.
+   .. note:: 异常引擎每30分钟运行一次。 虽然可以从File Analytics VM配置此设置，但是修改此变量不在本练习的范围之内。
 
-#. Create a new directory called **RO** in the Marketing share
+#. 在Marketing共享中创建一个名为 **RO** 的新目录
 
-#. Create a text file in the **RO** directory with some text like “hello world” called **myfile.txt**
+#. 在 **RO** 目录中创建一个文本文件，其中包含诸如 “hello world” 之类的名为 **myfile.txt** 的文本
 
-#. Go to the **Properties** of the **RO** folder and select the Security tab
+#. 转到 **RO** 文件夹的 **Properties** 并选择Security选项卡
 
-#. Select **Advanced**
+#. 选择 **Advanced**
 
-#. Choose **Disable inheritance** and select the **Convert…** option
+#. 选择 **Disable inheritance** 然后选择 **Convert…** 选项
 
-#. Then add the **Everyone** permissions with the following:
+#. 然后添加 **Everyone** 权限如下:
 
    - Read & Execute
    - List folder contents
@@ -76,27 +76,27 @@ Cause Error Condition
 
    .. figure:: images/43.png
 
-#. Choose **OK** then **OK** again
+#. 选择 **OK** 然后再次选择 **OK**
 
-#. Open a PowerShell window as a specific user
+#. 以特定用户的身份打开PowerShell窗口
 
-   - Hold down **Shift** and **right click** on the **PowerShell icon** on the taskbar
-   - Select **Run as different user**
+   - 按住 **Shift** 然后 **right click** 任务栏上的 **PowerShell icon**
+   - 选择 **Run as different user**
 
    .. figure:: images/44.png
 
-#. Enter the following
+#. 输入以下信息
 
-   - **User name**: Poweruser01
+   - **User name**: devuser01
    - **Password**: nutanix/4u
 
-#. Change Directories into the Marketing share and the **RO** directory
+#. 更改目录为 Marketing share 和 **RO** 目录
 
      .. code-block:: bash
 
         cd \\xyz-files.ntnxlab.local\marketing\RO
 
-#. Execute the following commands, the first should succeed, the second should fail:
+#. 执行以下命令，第一个应该成功，第二个应该失败:
 
      .. code-block:: bash
 
@@ -105,8 +105,8 @@ Cause Error Condition
 
    .. figure:: images/45.png
 
-#. After a minute or so you should see **Permission Denials** in both the dashboard and the **Audit Trails** view.  You may need to refresh your browser.
+#. 大约一分钟后，您将在仪表板和 **Audit Trails** 视图中看到 **Permission Denials** 。 您可能需要刷新您的浏览器。
 
    .. figure:: images/46.png
 
-   .. note:: The Capacity Trend dashboard panel updates every 24 hrs.
+   .. note:: 容量趋势面板每24小时更新一次。

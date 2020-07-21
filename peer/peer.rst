@@ -7,11 +7,11 @@
 Peer Global File Service
 ------------------------
 
-*The estimated time to complete this lab is 60 minutes.*
+*预计完成本次实验需要60分钟.*
 
-**Google Chrome, Apple Safari, or Microsoft Edge is recommended for this lab.**
+**本实验室推荐使用谷歌Chrome、Apple Safari或Microsoft Edge.**
 
-Overview
+概述
 ++++++++
 
 The explosive growth of unstructured data has driven organizations to seek solutions to efficiently store, share, manage, and protect an ever-growing universe of data while deriving new value and intelligence. Since 1993, Peer Software has focused on these requirements and more by building best-of-breed data management and real-time replication solutions for distributed on-premises and cloud storage environments.
