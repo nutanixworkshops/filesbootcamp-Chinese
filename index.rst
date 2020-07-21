@@ -26,7 +26,7 @@
    :name: _bonus
    :hidden:
 
-   peer/peer
+   #peer/peer
 
 .. toctree::
   :maxdepth: 2
@@ -51,84 +51,82 @@
 .. _getting_started:
 
 ---------------
-Getting Started
+Files 入门
 ---------------
 
-Welcome to the Nutanix Files Bootcamp!
+欢迎来到 Nutanix Files 训练营!
 
-This workbook accompanies an instructor-led session that introduces Nutanix Era and many common management tasks. Each section has a lesson and an exercise to give you hands-on practice. The instructor explains the exercises and answers any additional questions that you may have.
+该实验对应了一个由讲师指导的章节，其中介绍了Nutanix Files和许多常见的管理任务。 每个部分都有一个课程和一个练习，可为您提供动手练习。 讲师会讲角解练习并回答您可能有的其他问题。
 
-Traditionally, file storage has been yet another silo within IT, introducing unnecessary complexity and suffering from the same issues of scale and lack of continuous innovation seen in SAN storage. Nutanix believes there is no room for silos in the Enterprise Cloud. By approaching file storage as an app, running in software on top of a proven HCI core, Nutanix Files  delivers high performance, scalability, and rapid innovation through One Click management.
+通常来讲，文件存储一直是IT部门中的另一个孤岛，引入了不必要的复杂性，并且遭受了SAN存储中相同的扩展问题和缺乏持续创新的困扰。 Nutanix相信企业云中没有孤岛的空间。 通过将文件存储作为一种应用程序，并在经过验证的HCI Core之上运行于软件中，Nutanix Files通过一键式管理提供了高性能，可伸缩性和快速创新。
 
-**In this lab you will step through managaging SMB shares and NFS exports, scale out the environment, and explore upcoming Files features. The lab will provide key considerations around deployment, configuration, and use cases.**
+**在本实验中，您将逐步管理SMB共享和NFS导出，扩展环境并探索即将使用的Files功能。 该实验将提供有关部署，配置的关键注意事项，和应用场景。**
 
-What's New
+更新
 ++++++++++
 
-- Workshop updated for the following software versions:
+- Workshop 更新了以下软件版本:
     - AOS & PC 5.11.2.x
     - Files 3.6.1.2
     - File Analytics 2.1.0
 
-- Optional Lab Updates:
+- 可选实验室更新:
 
-Agenda
+议程
 ++++++
 
-- Nutanix Files Labs
-    - Files: Create SMB Share
-    - Files: Create NFS Export
-    - Files: Selective File Blocking
-    - File Analytics: Review Initial Scan
-    - File Analytics: Anomaly Rules
+- Nutanix Files 实验
+    - Files: 创建 SMB 共享
+    - Files: 创建 NFS Export
+    - Files: 选择性地文件屏蔽
+    - Files 分析: Review Initial Scan（查看初始扫描）
+    - Files 分析: Anomaly Rules（异常规则）
 
-- Bonus Labs
-    - Peer
 
-- Optional Labs
-    - Files: Deploy
-    - Files: Expand Cluster
-    - File Analytics: Deploy
+- 可选实验
+    - Files: 部署
+    - Files: 扩展集群
+    - File Analytics: 部署
 
-Introductions
+引言
 +++++++++++++
 
-- Name
-- Familiarity with Nutanix
+- 姓名
+- 熟悉Nutanix
 
-Initial Setup
+初始化设置
 +++++++++++++
 
-- Take note of the *Passwords* being used.
-- Log into your virtual desktops (connection info below)
+- 注意使用的 *Passwords* 。
+- 登录到你的实验环境 (连接信息如下所示)
 
-Environment Details
+实验环境信息
 +++++++++++++++++++
 
-Nutanix Workshops are intended to be run in the Nutanix Hosted POC environment. Your cluster will be provisioned with all necessary images, networks, and VMs required to complete the exercises.
+Nutanix 研讨会是在Nutanix托管POC环境中运行。 将为您的群集提供完成练习所需的所有必要镜像，网络和虚拟机。
 
-Networking
+网络
 ..........
 
-Hosted POC clusters follow a standard naming convention:
+托管POC集群遵循标准的命名规则：
 
 - **Cluster Name** - POC\ *XYZ*
 - **Subnet** - 10.**21**.\ *XYZ*\ .0
 - **Cluster IP** - 10.**21**.\ *XYZ*\ .37
 
-If provisioned from the marketing pool:
+如果是从marketing pool配置:
 
 - **Cluster Name** - MKT\ *XYZ*
 - **Subnet** - 10.**20**.\ *XYZ*\ .0
 - **Cluster IP** - 10.**20**.\ *XYZ*\ .37
 
-For example:
+示例:
 
 - **Cluster Name** - POC055
 - **Subnet** - 10.21.55.0
 - **Cluster IP** - 10.21.55.37
 
-Throughout the Workshop there are multiple instances where you will need to substitute *XYZ* with the correct octet for your subnet, for example:
+在整个实验中，有多个实例需要用正确的子网替换* XYZ *，例如：
 
 .. list-table::
    :widths: 25 75
@@ -143,7 +141,7 @@ Throughout the Workshop there are multiple instances where you will need to subs
    * - 10.21.\ *XYZ*\ .40
      - **DC** VM IP, NTNXLAB.local Domain Controller
 
-Each cluster is configured with 2 VLANs which can be used for VMs:
+每个群集配置有2个可用于虚拟机的VLAN：
 
 .. list-table::
   :widths: 25 25 10 40
@@ -162,12 +160,12 @@ Each cluster is configured with 2 VLANs which can be used for VMs:
     - *XYZ1*
     - 10.21.\ *XYZ*\ .132-10.21.\ *XYZ*\ .253
 
-Credentials
+用户凭证
 ...........
 
 .. note::
 
-  The *<Cluster Password>* is unique to each cluster and will be provided by the leader of the Workshop.
+ *<Cluster Password>* 对于每个集群都是唯一的，并将由讲师提供。
 
 .. list-table::
    :widths: 25 35 40
@@ -189,12 +187,12 @@ Credentials
      - nutanix
      - *<Cluster Password>*
 
-Each cluster has a dedicated domain controller VM, **DC**, responsible for providing AD services for the **NTNXLAB.local** domain. The domain is populated with the following Users and Groups:
+每个群集都有一个专用的域控制器虚拟机 **DC** ，负责为 **NTNXLAB.local** 域提供AD服务。 域中设置了以下用户和组：
 
 .. list-table::
    :widths: 25 35 40
    :header-rows: 1
-   
+
    * - Group
      - Username(s)
      - Password
@@ -220,53 +218,55 @@ Each cluster has a dedicated domain controller VM, **DC**, responsible for provi
      - user01-user25
      - nutanix/4u
 
-Access Instructions
+访问说明
 +++++++++++++++++++
 
-The Nutanix Hosted POC environment can be accessed a number of different ways:
+可以通过多种不同方式访问Nutanix托管POC环境:
 
-Lab Access User Credentials
+实验访问用户凭证
 ...........................
 
-PHX Based Clusters:
+PHX 集群:
 **Username:** PHX-POCxxx-User01 (up to PHX-POCxxx-User20), **Password:** *<Provided by Instructor>*
 
-RTP Based Clusters:
+RTP 集群:
 **Username:** RTP-POCxxx-User01 (up to RTP-POCxxx-User20), **Password:** *<Provided by Instructor>*
 
 Frame VDI
 .........
 
-Login to: https://frame.nutanix.com/x/labs
+登录: https://frame.nutanix.com/x/labs
 
-**Nutanix Employees** - Use your **NUTANIXDC** credentials
-**Non-Employees** - Use **Lab Access User** Credentials
+**Nutanix 员工** - 使用你的 **NUTANIXDC** 用户凭证
+**合作伙伴** - 使用 **Lab Access User** 用户凭证
 
 Parallels VDI
 .................
 
-PHX Based Clusters Login to: https://xld-uswest1.nutanix.com
+PHX 集群登录: https://xld-uswest1.nutanix.com
 
-RTP Based Clusters Login to: https://xld-useast1.nutanix.com
+RTP 集群登录: https://xld-useast1.nutanix.com
 
-**Nutanix Employees** - Use your **NUTANIXDC** credentials
-**Non-Employees** - Use **Lab Access User** Credentials
+**Nutanix 员工** - 使用你的 **NUTANIXDC** 用户凭证
+**合作伙伴** - 使用 **Lab Access User** 用户凭证
 
-Employee Pulse Secure VPN
+员工 Pulse Secure VPN
 ..........................
 
-Download the client:
+下载客户端:
 
-PHX Based Clusters Login to: https://xld-uswest1.nutanix.com
+PHX 集群登录: https://xlv-uswest1.nutanix.com
 
-RTP Based Clusters Login to: https://xld-useast1.nutanix.com
+RTP 登录: https://xlv-useast1.nutanix.com
 
-**Nutanix Employees** - Use your **NUTANIXDC** credentials
-**Non-Employees** - Use **Lab Access User** Credentials
+**Nutanix 员工** - 使用你的 **NUTANIXDC** 用户凭证
+**合作伙伴** - 使用 **Lab Access User** 用户凭证
 
-Install the client.
+合伙伙伴可以使用百度盘下载安装对应版本的VPN客户端，链接:https://pan.baidu.com/s/1fG4baeO26XKHuzNjvsVHGA  密码:8zi8
 
-In Pulse Secure Client, **Add** a connection:
+安装客户端.
+
+在Pulse Secure 客户端中, 点击 **Add** 添加一个连接:
 
 For PHX:
 
@@ -281,9 +281,9 @@ For RTP:
 - **Server URL** - xlv-useast1.nutanix.com
 
 
-Nutanix Version Info
+Nutanix 版本信息
 ++++++++++++++++++++
 
 - **AHV Version** - AHV 20170830.337
-- **AOS Version** - 5.11.2.3
-- **PC Version** - 5.11.2.1
+- **AOS Version** - 5.16.x
+- **PC Version** - 5.16.x

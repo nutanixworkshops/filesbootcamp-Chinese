@@ -1,50 +1,50 @@
 .. _file_analytics_deploy:
 
 ----------------------
-File Analytics: Deploy
+Files 分析: 部署
 ----------------------
 
-Overview
+概述
 ++++++++
 
-In this exercise you will deploy the File Analytics VM and scan the existing shares to build out the dashboard.  You will also create anomaly alerts and view the audit details for your file server instance.
+在这个练习中，您将部署File Analytics VM并扫描现有的共享以构建仪表板。您还将创建异常警报并查看文件服务器实例的审计详细信息。
 
-Deploy File Analytics
+部署 File Analytics
 +++++++++++++++++++++
 
-#. In **Prism** > **File Server** > click **Deploy File Analytics**
+#. 在 **Prism** > **File Server** >中点击 **Deploy File Analytics**
 
    .. figure:: images/31.png
 
-#. Select **Deploy**
+#. 选择 **Deploy**
 
-   For the purpose of saving time, the File Analytics 2.0.0 package has already been uploaded to your cluster. Files binaries can be downloaded from the Nutanix Portal and uploaded manually.
+   为了节省时间，File Analytics 2.0.0包已经上传到您的集群中了。二进制文件可以从Nutanix门户下载并手动上传。
 
-#. After the upload completes select **Install**
+#. 上传完成后选择 **Install**
 
-#. Fill out the details
+#. 填写详细信息
 
-   - **Name** - Initials
-   - **Storage Container** – Will automatically select the container used by your file server instance
+   - **Name** - 姓名首字母缩写
+   - **Storage Container** – 会自动选择文件服务器实例所使用的container
    - **Network List** – Primary - Managed
 
-#. Select **Show Advanced Settings**
+#. 选择 **Show Advanced Settings**
 
-#. Ensure **DNS Resolver IP** is set to your Active Directory, ntnxlab.local, domain controller/DNS IP address and **ONLY** that address.
+#. 确保将 **DNS Resolver IP** 设置为你的 Active Directory, ntnxlab.local, domain controller/DNS IP address 并且 **仅有** 该地址。
 
-#. Choose **Deploy**
+#. 选择 **Deploy**
 
-#. You can monitor the deployment from the **Tasks** page.  The Analytics VM deployment should take ~5 minutes.
+#. 您可以从 **Tasks** 页面监视部署。  The Analytics VM 部署大约需要5分钟。
 
-#. In **Prism** > **File Server** > click **File Analytics**
+#. 在 **Prism** > **File Server** > 中点击 **File Analytics**
 
    .. figure:: images/33.png
 
-#. On the Enable File Analytics page enter your domain administrator which is also your file server administrator.
+#. 在启用 File Analytics 页面上输入您的域管理员，该域管理员也是您的文件服务器管理员。
 
    - **Username**: administrator
    - **Password**: nutanix/4u
 
    .. figure:: images/34.png
 
-#. Select **Enable**
+#. 选择 **Enable**

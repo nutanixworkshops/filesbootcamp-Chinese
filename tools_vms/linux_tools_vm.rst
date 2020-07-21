@@ -4,23 +4,23 @@
 Linux Tools VM
 ---------------
 
-Overview
+概述
 +++++++++
 
-This CentOS VM image will be staged with packages used to support multiple lab exercises.
+此CentOS VM镜像将与用于支持多个实验练习的软件包一起制备。
 
-Deploy this VM on your assigned cluster if directed to do so as part of **Lab Setup**.
+如果在 **Lab Setup** 中指示这么做，请在指定的集群上部署这个VM。
 
 .. raw:: html
 
-  <strong><font color="red">Only deploy the VM once, it does not need to be cleaned up as part of any lab completion.</font></strong>
+  <strong><font color="red">只部署VM一次，不需要在任何实验完成时对其进行清理。</font></strong>
 
-Deploying CentOS
+部署CentOS
 ++++++++++++++++
 
-In **Prism Central** > select :fa:`bars` **> Virtual Infrastructure > VMs**, and click **Create VM**.
+在 **Prism Central** > select :fa:`bars` **> Virtual Infrastructure > VMs** 中, 点击 **Create VM**.
 
-Fill out the following fields:
+填写以下字段:
 
 - **Name** - *Initials*-Linux-ToolsVM
 - **Description** - (Optional) Description for your VM.
@@ -38,6 +38,6 @@ Fill out the following fields:
     - **VLAN Name** - Secondary
     - Select **Add**
 
-Click **Save** to create the VM.
+点击 **Save** 以创建VM.
 
-Power on the VM.
+将 VM开机.

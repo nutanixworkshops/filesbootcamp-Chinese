@@ -1,23 +1,23 @@
 .. _files_file_blocking:
 
 ------------------------
-Files: File Blocking
+Files: 文件屏蔽
 ------------------------
 
-Selective File Blocking
+选择性的文件屏蔽
 +++++++++++++++++++++++
 
-In this exercise you will configure Files to block specific file extensions for the file server and the Marketing share.
+在本练习中，您将配置Files以阻止File server和 Marketing share和特定文件扩展名。
 
-#. In **Prism** > **File Server** > Select your file server and click **Update** > then click **Blocked File Types**
+#.  在 **Prism** > **File Server** >中选择您的 files server 点击 **Update** > 然后点击 **Blocked File Types**
 
    .. figure:: images/47.png
 
-#. Under **Blocked File Types** enter a comma separated list of extensions like .flv,.mov and click **Save**
+#. 在 **Blocked File Types** 下，输入逗号分隔的扩展名列表例如 .flv,.mov 然后点击 **Save**
 
    .. figure:: images/48.png
 
-#. Open a PowerShell window by clicking on the **PowerShell icon** on the taskbar. Enter the following command where you will see an access denied error message:
+#. 通过单击任务栏上的 **PowerShell icon** 打开PowerShell窗口。 输入以下命令，您将在其中看到拒绝访问错误消息：
 
    .. code-block:: bash
 
@@ -25,18 +25,18 @@ In this exercise you will configure Files to block specific file extensions for 
 
    .. figure:: images/49.png
 
-#. In **Prism** > **File Server** > **Share/Export** > click on the Marketing share and select **Update**
+#. 在 **Prism** > **File Server** > **Share/Export** > 单击 Marketing share 并选择 **Update**
 
    .. figure:: images/50.png
 
-#. Select **Next** to get to the **Settings** page.
+#. 选择 **Next** 以进入 **Settings** 页面。
 
-#. Check **Blocked File Types** and enter .none as a file extension.
+#. 选中 **Blocked File Types** ，然后输入.none 作为文件扩展名。
 
    .. figure:: images/51.png
 
-#. Select **Next** then **Save** on the **Summary** page to complete the update.
+#. 选择 **Next** ，然后在 **Summary** 页面上选择 **Save** 以完成更新。
 
-#. Blocked file type settings at the share level override the server level setting.  Using PowerShell issue the same command as the previous step.  The command will now complete successfully.
+#. 共享级别的阻止的文件类型设置将覆盖服务器级别的设置。 使用PowerShell发出与上一步相同的命令。 该命令现在将成功完成。
 
    .. figure:: images/52.png

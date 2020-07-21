@@ -1,48 +1,48 @@
 .. _files_multiprotocol:
 
 ------------------------
-Files: Multi-Protocol
+Files: 多协议
 ------------------------
 
-Multi-protocol
+多协议
 ++++++++++++++
 
-In this exercise you will configure an existing SMB share to also support NFS. Enabling multi-protocol access requires you to configure user mappings and define the native and non-native protocol for a share.
+在本练习中，您将配置现有的SMB共享以也支持NFS。 启用多协议访问要求您配置用户映射并定义共享的本机和非本机协议。
 
-Configure User Mappings
+配置用户映射
 .......................
 
-A Nutanix Files share has the concept of a native and non-native protocol.  All permissions are applied using the native protocol.
-Any access requests using the non-native protocol requires a user or group mapping to the permission applied from the native side.
-There are several ways to apply user and group mappings including rule based, explicit and default mappings.  You will first configure a default mapping.
+Nutanix Files共享具有本机和非本机协议的概念。 使用本地协议应用所有权限。
+使用非本机协议的任何访问请求都需要用户或组映射到从本机端应用的权限。
+有多种应用用户和组映射的方法，包括基于规则的映射，显式映射和默认映射。 您将首先配置默认映射。
 
-#. In **Prism** > **File Server** > Select your file server and click **Protocol Management** > then click **User Mapping**
+#. 在 **Prism** > **File Server** > 中选择你的文件服务器，点击 **Protocol Management** > 然后点击 **User Mapping**
 
    .. figure:: images/53.png
 
-#. In the **User Mapping** dialog click **Next** at least two times, until you are on the **Default Mapping** page.
+#. 在 **User Mapping** 对方框中，至少两次单击 **Next** ， 直到您进入 **Default Mapping** 页面。
 
-#. From the **Default Mapping** page choose both **Deny access to NFS export** and **Deny access to SMB share** as the defaults for when no mapping is found.
+#. 在 **Default Mapping** 页面上，选择 **Deny access to NFS export** 和 **Deny access to SMB share** 作为未找到映射的默认值。
 
    .. figure:: images/54.png
 
-#. Complete the initial mapping by choosing **Next** and then **Save** on the **Summary** page.
+#. 选择 **Next** 然后在 **Summary** 页面上选择 **Save** 以完成初始映射。
 
-#. In **Prism** > **File Server** > **Share/Export** > click on the Marketing share and select **Update**.
+#. 在 **Prism** > **File Server** > **Share/Export** > 单击 Marketing share 然后选择 **Update**。
 
-#. From the **Basics** page check the box at the bottom which says **Enable multiprotocol access for NFS**.
+#. 在 **Basics** 页面的底部，选中 **Enable multiprotocol access for NFS** 复选框。
 
    .. figure:: images/55.png
 
-#. Click **Next** then from the **Settings* page check **Simultaneous access to the same files from both protocols**.
+#. 单击 **Next** 然后从 **Settings* 页面中检查 **Simultaneous access to the same files from both protocols**.
 
    .. figure:: images/56.png
 
-#. Click **Next** and then **Save** from the **Summary** page.
+#. 单击 **Next** ，然后从 **Summary** 页面中单击 **Save** 。
 
-#. Connect via SSH to the *Initials*\ -NFS-Client VM.
+#. 通过SSH连接到 *姓名缩写*\ -NFS-Client VM.
 
-#. Execute the following commands:
+#. 执行以下命令:
 
      .. code-block:: bash
 
@@ -52,12 +52,12 @@ There are several ways to apply user and group mappings including rule based, ex
        dir: cannot open directory /filesmulti: Permission denied
        [root@CentOS ~]#
 
-   .. note:: The mount operation is case sensitive.
+   .. note:: mount操作区分大小写。
 
-Because the default mapping is to deny access the Permission denied error is expected.  You will now add an explicit mapping to allow access to the non-native NFS protocol user.
-We will need to get the user ID (UID) to create the explicit mapping.
+因为默认映射是拒绝访问，所以会出现“权限被拒绝”错误。 现在，您将添加一个显式映射，以允许访问非本机NFS协议用户。
+我们将需要获取用户ID（UID）来创建显式映射。
 
-#. Execute the following command and take note of the UID:
+#. 执行以下命令并注意 UID:
 
      .. code-block:: bash
 
@@ -65,13 +65,13 @@ We will need to get the user ID (UID) to create the explicit mapping.
        uid=0(root) gid=0(root) groups=0(root) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
        [root@CentOS ~]#
 
-#. In **Prism** > **File Server** > Select your file server and click **Protocol Management** > then click **User Mapping**
+#. 在 **Prism** > **File Server** > 中，选择您的文件服务器，单击 **Protocol Management** > 然后单击 **User Mapping**
 
-#. Click **Next** until you are on the **Explicit Mapping** page
+#. 单击 **Next** 直到进入 **Explicit Mapping** 页面
 
-#. Click **+ Add one-to-one mapping**
+#. 单击 **+ Add one-to-one mapping**
 
-#. Fill out the following fields:
+#. 填入以下字段:
 
    - **SMB Name** - ntnxlab\\administrator
    - **NFS ID** - UID from previous step (0 if root)
@@ -79,13 +79,13 @@ We will need to get the user ID (UID) to create the explicit mapping.
 
    .. figure:: images/57.png
 
-#. Click **Save** under the **Actions** column
+#. 点击 **Actions** 列下的 **Save**
 
-#. Click **Next** until the **Summary** page and then click **Save**
+#. 点击 **Next** 直到进入 **Summary** 页面，然后单击 **Save**
 
-#. Click **Close**
+#. 点击 **Close**
 
-#. Go back to the NFS-Client VM and execute the following:
+#. 返回到NFS-Client VM 并执行以下操作:
 
      .. code-block:: bash
 
