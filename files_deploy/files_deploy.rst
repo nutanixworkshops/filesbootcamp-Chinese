@@ -1,37 +1,37 @@
 .. _files_deploy:
 
 -------------
-Files: Deploy
+Files: 部署
 -------------
 
 .. _deploying_files:
 
-Deploy Files
+部署 Files
 ++++++++++++
 
-#. In **Prism > File Server**, click **+ File Server** to open the **New File Server Pre-Check** dialogue.
+#. 在 **Prism > File Server** 点击 **+ File Server** 以打开 **New File Server Pre-Check** 窗口。
 
    .. figure:: images/1.png
 
-   For the purpose of saving time, the Files has already been uploaded to your cluster. Files binaries can be downloaded directly through Prism or uploaded manually.
+   为了节省时间，文件已被上传到您的集群。 文件二进制文件可以直接通过Prism下载，也可以手动上传。
 
    .. figure:: images/2.png
 
-   Additionally, the cluster's **Data Services** IP Address has already been configured (*10.XX.YY.38*). In a Files cluster, storage is presented to the Files VMs as a Volume Group via iSCSI, hence the dependency on the Data Services IP.
+   此外，群集的 Data Services IP地址已配置 (10.XX.YY.38)。 在文件群集中，存储通过iSCSI作为卷组提供给Files虚拟机，因此依赖于数据服务IP。
 
    .. note::
 
-     If staging your own environment, the Data Services IP can be easily configured by selecting :fa:`gear` **> Cluster Details**, specifying the **iSCSI Data Services IP**, and clicking **Save**. Currently, the Data Services IP must be in the same subnet as your CVMs.
+     如果你要搭建自己的环境， 则可以通过以下方式轻松配置数据服务IP :fa:`gear` **> Cluster Details**, 指定 **iSCSI Data Services IP**, 然后点击 **Save**. 当前, 数据服务IP必须与CVM在同一子网中。
 
-   Lastly Files will ensure that at least 1 network has been configured on the cluster. A minimum of 2 networks are recommended to have segmentation between the client side and storage side networks.
+     最后，Files将确保在群集上至少配置了1个网络。 建议至少有2个网络在客户端网络和存储网络之间进行分段。
 
-#. Click **Continue**.
+#. 点击 **Continue**.
 
    .. figure:: images/3.png
 
-#. Fill out the following fields:
+#. 填写以下字段：
 
-   - **Name** - *Intials*-Files (e.g. XYZ-Files)
+   - **Name** - *姓名缩写*-Files (e.g. XYZ-Files)
    - **Domain** - ntnxlab.local
    - **File Server Size** - 1 TiB
 
@@ -39,89 +39,89 @@ Deploy Files
 
    .. note::
 
-     Clicking **Custom Configuration** will allow you to alter the scale up and scale out sizing of the Files VMs based on User and Throughput targets. It also allows for manual sizing of the Files cluster.
+     点击 **Custom Configuration** 将允许您根据用户和吞吐量目标横向和纵身扩展Files VM配置。 还允许手动调整Files群集的大小。
 
      .. figure:: images/5.png
 
-#. Click **Next**.
+#. 点击 **Next**.
 
-#. Select the **Secondary - Managed** VLAN for the **Client Network**.
+#. 选择 **Secondary - Managed** VLAN 的 **Client Network**.
 
-   Each Files VM will consume a single IP on the client network.
-
-   .. note::
-
-     In the HPOC environment it is critical to use the secondary VLAN for the client network if using separate client and storage networks.
-
-     It is typically desirable in production environments to deploy Files with dedicated virtual networks for client and storage traffic. When using two networks, Files will, by design, disallow client traffic the storage network, meaning VMs assigned to the primary network will be unable to access shares.
+    每个Files VM将在客户端网络上使用一个IP。
 
    .. note::
 
-     As this is an AHV managed network, configuration of individual IPs is not necessary. In an ESXi environment, or using an unmanaged AHV network, you would specify the network details and available IPs as shown below.
+     在HPOC环境中，如果使用单独的客户端网络和存储网络，则对于客户端网络使用Secondary VLAN至关重要。
+
+     在生产环境中，通常需要使用专用虚拟网络部署文件以用于客户端和存储流量。 当使用两个网络时，根据设计，Files将禁止客户端访问存储网络，这意味着分配给主网络的VM将无法访问共享。
+
+   .. note::
+
+     由于这是AHV管理的网络，因此不需要配置单个IP。 在ESXi环境中，或使用不受管理的AHV网络，您将指定网络详细信息和可用IP，如下所示。
 
      .. figure:: images/6.png
 
-#. Specify your cluster's **Domain Controller** VM IP (found in :ref:`stagingdetails`) as the **DNS Resolver IP** (e.g. 10.XX.YY.40). Leave the default (cluster) NTP Server.
+#. 指定你集群的 **Domain Controller** VM IP (found in :ref:`stagingdetails`) 作为 **DNS Resolver IP** (例如 10.XX.YY.40). 保留默认的 (cluster) NTP 服务器。
 
    .. raw:: html
 
-     <strong><font color="red">In order for the Files cluster to successfully find and join the NTNXLAB.local domain it is critical that the DNS Resolver IP is set to the Domain Controller VM IP FOR YOUR CLUSTER. By default, this field is set to the primary Name Server IP configured for the Nutanix cluster, this value is incorrect and will not work.</font></strong>
+     <strong><font color="red">为了使Files群集成功找到并加入NTNXLAB.local域，将DNS解析服务器IP设置为您的集群的域控制器VM IP是至关重要的。 默认情况下，此字段设置为Nutanix群集配置的主要DNS服务器IP，此值不正确，将不起作用。</font></strong>
 
    .. figure:: images/7.png
 
-#. Click **Next**.
+#. 点击 **Next**.
 
-#. Select the **Primary - Managed** VLAN for the Storage Network.
+#. 选择 **Primary - Managed** VLAN 用于存储网络。
 
-   Each Files VM will consume a single IP on the storage network, plus 1 additional IP for the cluster.
+   每个Files VM将在存储网络上使用一个IP，另外再为群集增加1个其他IP。
 
    .. figure:: images/8.png
 
-#. Click **Next**.
+#. 点击 **Next**.
 
-#. Fill out the following fields:
+#. 填定以下字段:
 
-   - Select **Use SMB Protocol**
+   - 选择 **Use SMB Protocol**
    - **Username** - Administrator@ntnxlab.local
    - **Password** - nutanix/4u
-   - Select **Make this user a File Server admin**
-   - Select **Use NFS Protocol**
+   - 选择 **Make this user a File Server admin**
+   - 选择 **Use NFS Protocol**
    - **User Management and Authentication** - Unmanaged
 
    .. figure:: images/9.png
 
-   .. note:: In unmanaged mode, users are only identified by UID/GID. In Files 3.5, Files supports both NFSv3 and NFSv4
+   .. note:: 在非托管模式下, 仅通过 UID/GID标识用户。 在 Files 3.5中, Files 支持 NFSv3 和 NFSv4。
 
-#. Click **Next**.
+#. 点击 **Next**.
 
-   By default, Files will automatically create a Protection Domain to take daily snapshots of the Files cluster and retain the previous 2 snapshots. After deployment, the snapshot schedule can be modified and remote replication sites can be defined.
+   默认情况下，Files 将自动创建一个保护域，以获取Files群集的每日快照并保留前两个快照。 部署后，可以修改快照计划并定义远程复制站点。
 
    .. figure:: images/10.png
 
-#. Click **Create** to begin the Files deployment.
+#. 点击 **Create** 开始部署Files。
 
-#. Monitor deployment progress in **Prism > Tasks**.
+#. 在 **Prism > Tasks** 中监视部署进度。
 
-   Deployment should take approximately 10 minutes.
+   部署大约需要10分钟。
 
    .. figure:: images/11.png
 
    .. note::
 
-     If you receive a warning regarding DNS record validation failure, this can be safely ignored. The shared cluster does not use the same DNS servers as your Files cluster, and as a result is unable to resolve the DNS entries created when deploying Files.
+   如果您收到有关DNS记录验证失败的警告，则可以安全地将其忽略。 共享群集不使用与Files群集相同的DNS服务器，因此无法解析在部署Files时创建的DNS条目。
 
-#. Go to **Prism > File Server** and select the *Initials*\ **-Files** server and click **Protect**.
+#. 转到 **Prism > File Server** 然后选择 *姓名缩写*\ **-Files** 服务器单击 **Protect**.
 
    .. figure:: images/12.png
 
-#. Observe the default Self Service Restore schedules, this feature controls the snapshot schedule for Windows' Previous Versions functionality. Supporting Previous Versions allows end users to roll back changes to files without engaging storage or backup administrators. Note these local snapshots do not protect the file server cluster from local failures and that replication of the entire file server cluster can be performed to remote Nutanix clusters. Click **Close**.
+#. 遵守默认的自助服务还原计划，此功能控制Windows以前版本功能的快照计划。 支持早期版本允许最终用户回滚对文件的更改，而无需聘请存储或备份管理员。 请注意，这些本地快照不能保护Files服务器群集免受本地故障的影响，并且可以将整个Files服务器群集复制到远程Nutanix群集。 点击闭 **Close** 。
 
    .. figure:: images/13.png
 
-Takeaways
+重点回顾
 +++++++++
 
-What are the key things you should know about **Nutanix Files**?
+关于 **Nutanix Files** 您应该了解哪些关键知识？
 
-- Files can be rapidly deployed on top of existing Nutanix clusters, providing SMB and NFS storage for user shares, home directories, departmental shares, applications, and any other general purpose file storage needs.
-- Files is not a point solution. VM, File, Block, and Object storage can all be delivered by the same platform using the same management tools, reducing complexity and management silos.
+- Files可以快速部署在现有Nutanix群集之上，从而为用户共享，主目录，部门共享，应用程序和任何其他通用文件存储需求提供SMB和NFS存储。
+- Files不是单一解决方案。 VM，文件，块和对象存储都可以在同一平台上使用相同的管理工具来交付，从而降低了复杂性和管理孤岛。
